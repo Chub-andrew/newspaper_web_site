@@ -5,3 +5,4 @@ flake8-variables-names
 pep8-naming
 pillow
 django-taggit
+django-debug-toolbar
