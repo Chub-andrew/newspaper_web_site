@@ -60,7 +60,7 @@ class Author(AbstractUser):
     """
     Author model to extend the default user model with additional fields.
     """
-    year_of_experience = models.IntegerField()
+    year_of_experience = models.IntegerField(blank=False,)
 
     class Meta:
         verbose_name = "Author"
