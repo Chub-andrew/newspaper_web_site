@@ -1,4 +1,5 @@
 from django.contrib import admin
+from django.contrib.auth.admin import UserAdmin
 
 from .models import Topic, Article, Author
 
@@ -36,26 +37,22 @@ class ArticleAdmin(admin.ModelAdmin):
 
 
 @admin.register(Author)
-class AuthorAdmin(admin.ModelAdmin):
-    list_display = (
-        'username',
-        'first_name',
-        'last_name',
-        'email',
-        'year_of_experience',
-        'password',
-        'last_login',
-        'is_superuser',
-        'is_staff',
-        'is_active',
-        'date_joined',
-
+class AuthorAdmin(UserAdmin):
+    list_display = UserAdmin.list_display + ("year_of_experience",)
+    fieldsets = UserAdmin.fieldsets + (
+        (("Additional info", {"fields": ("year_of_experience",)}),)
     )
-    list_filter = (
-        'last_login',
-        'is_superuser',
-        'is_staff',
-        'is_active',
-        'date_joined',
+    add_fieldsets = UserAdmin.add_fieldsets + (
+        (
+            (
+                "Additional info",
+                {
+                    "fields": (
+                        "first_name",
+                        "last_name",
+                        "year_of_experience",
+                    )
+                },
+            ),
+        )
     )
-    raw_id_fields = ('groups', 'user_permissions')

@@ -7,3 +7,4 @@ pillow
 django-taggit
 django-debug-toolbar
 django-extensions
+crispy-bootstrap5

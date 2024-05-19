@@ -1,0 +1,29 @@
+<nav class="py-2 bg-light border-bottom">
+  <div class="container d-flex flex-wrap">
+    <ul class="nav me-auto">
+      <li class="nav-item"><a href="{% url "catalog:index" %}" class="nav-link link-dark px-2 active" aria-current="page">Home</a></li>
+      <li class="nav-item"><a href="{% url "catalog:article_list" %}" class="nav-link link-dark px-2">Articles</a></li>
+      <li class="nav-item"><a href="{% url "catalog:topic_list" %}" class="nav-link link-dark px-2">Topics</a></li>
+    </ul>
+    <ul class="nav">
+      {% if user.is_authenticated %}
+        <li class="nav-item">
+          <span class="nav-link link-dark px-2">Welcome, {{ user.username }}</span>
+        </li>
+        <li class="nav-item">
+          <a href="{% url "login" %}" class="nav-link link-dark px-2">Logout</a>
+        </li>
+      {% else %}
+        <li class="nav-item">
+          <a href="{% url "login" %}" class="nav-link link-dark px-2">Login</a>
+        </li>
+        <li class="nav-item">
+          <a href="#" class="nav-link link-dark px-2">Sign up</a>
+        </li>
+      {% endif %}
+    </ul>
+  </div>
+</nav>
+<header class="py-3 mb-4 border-bottom">
+  
+</header>

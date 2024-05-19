@@ -1,10 +1,44 @@
 {% extends "base.html" %}
-{% block title %} {% Articles %} {% endblock %}
+{% block title %} Articles {% endblock %}
+{% load crispy_forms_filters %}
 
 {% block content %}
   <h1>Articles</h1>
-  
+
+  <div class="container d-flex flex-wrap justify-content-between align-items-center mb-3">
+    <a href="/" class="d-flex align-items-center text-dark text-decoration-none">
+      <svg class="bi me-2" width="40" height="32"><use xlink:href="#bootstrap"></use></svg>
+    </a>
+    <a class="btn btn-secondary" href="{% url "catalog:article_create" %}">Create new article</a>
+  </div>
+
+  <form class="col-12 col-lg-auto mb-3 mb-lg-0" method="get" action="{% url 'catalog:article_list' %}">
+    <input type="search" class="form-control" placeholder="Search by article" aria-label="Search" name="title">
+    <button type="submit" class="btn btn-sm btn-secondary">Search</button>
+  </form>
+
   {% for article in articles %}
-    <h3>{{ article.title }}</h3>
+    <div class="mt-2 row ">
+      <div class="col-3">
+        {% if article.main_image %}
+          <img class="img-thumbnail" src="{{ article.main_image.url }}" alt="5t">
+        {% endif %}
+      </div>
+      <div class="col-9">
+        <h3>
+          <a class="badge d-flex align-items-center p-1 pe-2 text-dark-emphasis bg-light-subtle border border-dark-subtle rounded-pill" href="{% url 'catalog:article_detail' article.pk %}">{{ article.title }}</a>
+        </h3>
+        <h6>{{ article.topic.name }}</h6>
+        {% if article.tags.count %}
+          {% for tag in article.tags.all %}
+            <span class="badge text-bg-secondary">{{ tag.name }}</span>
+          {% endfor %}
+        {% endif %}
+        <h9>{{ article.published_at }}</h9>
+        <p>{{ article.short_content }}</p>
+
+        <a href="{% url 'catalog:article_update' article.pk %}" class="btn btn-sm btn-secondary">Update</a>
+      </div>
+    </div>
   {% endfor %}
 {% endblock content %}

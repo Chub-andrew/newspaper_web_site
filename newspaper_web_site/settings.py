@@ -41,6 +41,8 @@ INSTALLED_APPS = [
     'django_extensions',
     'catalog',
     'taggit',
+    "crispy_forms",
+    "crispy_bootstrap5",
 ]
 
 MIDDLEWARE = [
@@ -133,3 +135,12 @@ INTERNAL_IPS = [
 ]
 
 AUTH_USER_MODEL = 'catalog.Author'
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT = BASE_DIR / "media"
+
+LOGIN_REDIRECT_URL = "/"
+
+CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
+
+CRISPY_TEMPLATE_PACK = "bootstrap5"
