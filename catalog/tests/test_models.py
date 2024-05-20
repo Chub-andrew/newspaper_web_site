@@ -21,13 +21,14 @@ class ArticleTestCase(TestCase):
         )
         self.assertEqual(
             str(author),
-            f"{author.username} ({author.first_name} {author.last_name})")
+            f"{author.username} ("
+            f"{author.first_name} "
+            f"{author.last_name}"
+            f")"
+        )
 
     def test_topic_str(self):
         topic = Topic.objects.create(
             name="test_name",
         )
-        self.assertEqual(
-            str(topic),
-            f"{topic.name}"
-        )
+        self.assertEqual(str(topic), f"{topic.name}")

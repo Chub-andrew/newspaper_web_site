@@ -9,7 +9,9 @@
     <a href="/" class="d-flex align-items-center text-dark text-decoration-none">
       <svg class="bi me-2" width="40" height="32"><use xlink:href="#bootstrap"></use></svg>
     </a>
-    <a class="btn btn-secondary" href="{% url "catalog:article_create" %}">Create new article</a>
+    {% if request.user.year_of_experience >= 5 %}
+      <a class="btn btn-secondary" href="{% url "catalog:article_create" %}">Create new article</a>
+    {% endif %}
   </div>
 
   <form class="col-12 col-lg-auto mb-3 mb-lg-0" method="get" action="{% url 'catalog:article_list' %}">
@@ -18,7 +20,7 @@
   </form>
 
   {% for article in articles %}
-    <div class="mt-2 row ">
+    <div class="mt-2 row">
       <div class="col-3">
         {% if article.main_image %}
           <img class="img-thumbnail" src="{{ article.main_image.url }}" alt="5t">

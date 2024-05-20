@@ -3,5 +3,8 @@
 {% block content %}
 <p>Logged out!</p>
 
-<a href="{% url 'login'%}">Click here to login again.</a>
+<form method="post" action="{% url 'logout' %}">
+    {% csrf_token %}
+    <button type="submit">Click here to login again.</button>
+</form>
 {% endblock %}

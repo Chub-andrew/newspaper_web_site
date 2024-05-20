@@ -19,24 +19,14 @@ class ArticleForm(forms.ModelForm):
 
 
 class ArticleSearchForm(forms.Form):
-    title = forms.CharField(
-        max_length=255,
-        required=False,
-        label="",
-        widget=forms.TextInput(
-            attrs={
-                "placeholder": "Search by article"
-            }
-        )
-    ),
-
-    def get_context_data(self, *, object_list=None, **kwargs):
-        context = super().get_context_data(**kwargs)
-        title = self.request.GET.get("title", "")
-        context["search_form"] = ArticleSearchForm(
-            initial={"title": title}
-        )
-        return context
+    title = (
+        forms.CharField(
+            max_length=255,
+            required=False,
+            label="",
+            widget=forms.TextInput(attrs={"placeholder": "Search by article"}),
+        ),
+    )
 
 
 class TopicForm(forms.ModelForm):
@@ -55,6 +45,7 @@ class AuthorCreationForm(UserCreationForm):
     class Meta(UserCreationForm.Meta):
         model = Author
         fields = UserCreationForm.Meta.fields + (
+            "username",
             "first_name",
             "last_name",
             "year_of_experience",

@@ -6,13 +6,13 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('catalog', '0002_remove_author_year_of_experience'),
+        ("catalog", "0002_remove_author_year_of_experience"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='author',
-            name='year_of_experience',
+            model_name="author",
+            name="year_of_experience",
             field=models.IntegerField(default=0),
             preserve_default=False,
         ),

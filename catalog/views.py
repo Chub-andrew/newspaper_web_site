@@ -7,7 +7,12 @@ from django.urls import reverse_lazy
 from django.views import generic
 
 from .models import Author, Topic, Article
-from .forms import ArticleForm, TopicForm, AuthorCreationForm, ArticleSearchForm
+from .forms import (
+    ArticleForm,
+    TopicForm,
+    AuthorCreationForm,
+    ArticleSearchForm
+)
 
 
 def index(request: HttpRequest):
@@ -15,9 +20,9 @@ def index(request: HttpRequest):
     num_topics = Topic.objects.count()
     num_articles = Article.objects.count()
     context = {
-        'num_authors': num_authors,
-        'num_topics': num_topics,
-        'num_articles': num_articles,
+        "num_authors": num_authors,
+        "num_topics": num_topics,
+        "num_articles": num_articles,
     }
     return render(request, "catalog/index.html", context=context)
 
@@ -28,23 +33,30 @@ class AuthorListView(LoginRequiredMixin, generic.ListView):
 
 class AuthorArticleListView(ListView):
     model = Article
-    template_name = 'catalog/author_articles.html'
-    context_object_name = 'articles'
+    template_name = "catalog/author_articles.html"
+    context_object_name = "articles"
 
     def get_queryset(self):
-        return Article.objects.filter(publishers__id=self.kwargs['pk'])
+        return Article.objects.filter(publishers__id=self.kwargs["pk"])
 
 
 class ArticleListView(ListView):
     model = Article
     context_object_name = "articles"
-    # template_name = "catalog/article_list.html"
     paginate_by = 4
+    template_name = "catalog/article_list.html"
+
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        query = self.request.GET.get("title", "")
+        if query:
+            queryset = queryset.filter(title__icontains=query)
+        return queryset
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super(ArticleListView, self).get_context_data(**kwargs)
         query = self.request.GET.get("title", "")
-        context["search_form"] = ArticleSearchForm()
+        context["search_form"] = ArticleSearchForm(initial={"title": query})
         return context
 
 
@@ -78,7 +90,6 @@ class TopicCreateView(LoginRequiredMixin, generic.CreateView):
     form_class = TopicForm
 
 
-class AuthorCreateView(LoginRequiredMixin, generic.CreateView):
+class AuthorCreateView(generic.CreateView):
     model = Author
     form_class = AuthorCreationForm
-    success_url = reverse_lazy('catalog:author-list')

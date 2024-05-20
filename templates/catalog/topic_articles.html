@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <div class="container mt-3">
+    <h1>Articles in {{ topic.name }}</h1>
+    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 mt-2">
+      {% for article in articles %}
+        <div class="col mb-3">
+          <div class="card">
+            {% if article.main_image %}
+              <img src="{{ article.main_image.url }}" class="card-img-top img-thumbnail" alt="{{ article.title }}">
+            {% endif %}
+            <div class="card-body">
+              <h2 class="card-title">{{ article.title }}</h2>
+              <p class="card-text">{{ article.short_content }}</p>
+              <a href="{% url 'catalog:article_detail' article.slug %}" class="btn btn-primary">Read more</a>
+            </div>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+{% endblock %}
