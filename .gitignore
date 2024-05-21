@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Created by https://www.toptal.com/developers/gitignore/api/python,django,pycharm+all
 # Edit at https://www.toptal.com/developers/gitignore?templates=python,django,pycharm+all
 
@@ -352,3 +353,11 @@ poetry.toml
 pyrightconfig.json
 
 # End of https://www.toptal.com/developers/gitignore/api/python,django,pycharm+all
+=======
+.venv
+db.sqlite3
+**__pycache__
+/media/
+.idea
+/static/
+>>>>>>> b976c738124eeb2d6f95239f4f978274d3d5781e

@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h1>All Authors</h1>
+    <div>
+    <ul>
+        {% for author in object_list %}
+            <li>
+                <a class="btn btn-secondary" href="{{ author.get_absolute_url }}">{{ author.last_name }} {{ author.first_name }}</a>
+            </li>
+        {% endfor %}
+    </ul>
+    </div>
+{% endblock %}

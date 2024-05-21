@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <div class="container d-flex flex-wrap justify-content-between align-items-center mb-3">
+    <a href="/" class="d-flex align-items-center text-dark text-decoration-none">
+      <svg class="bi me-2" width="40" height="32"><use xlink:href="#bootstrap"></use></svg>
+      
+    </a>
+    <a class="btn btn-secondary" href="{% url "catalog:topic_create" %}">Create topic</a>
+  </div>
+<div class="row">
+  <div class="col-12 text-center">
+    <h1>Topics</h1>
+  </div>
+</div>
+
+<div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 mt-2">  {% for topic in topics %}
+    <div class="col mb-3">  <div class="card">  {% if topic.image %}
+          <img src="{{ topic.image.url }}" class="card-img-top img-thumbnail" alt="{{ topic.name }}">
+        {% endif %}
+        <div class="card-body">
+          <h2 class="card-title">{{ topic.name }}</h2>
+        </div>
+      </div>
+    </div>
+  {% endfor %}
+</div>
+
+{% endblock %}
+
+
+
